@@ -43,7 +43,7 @@ The time course of the SEAKER system in vitro was simulated from 0 to 100 hours 
 
 Justified application of the SEAKER system requires that CTL lytic activity and AMS toxicity synergize to kill Raji cells with sufficiently higher magnitude than either cytotoxic constituent alone. The following figure shows the effect of adding 0 nM or 5x10^10 nM P-AMS at time 0 with 10^4 Raji cells and CTLs (1:1 E:T). With the exception of notable roll-off starting at 40 hours, the AMS does not appear to have a significant effect on the the system over a 100 hour period with the model used. The unremarkable results of this example motivate a full analysis of the sensitivity of the model to the physical parameters of the system.
 <p align="center">
-<img src="fig2.PNG" width=50% height=50%>
+<img src="fig2.png" width=60% height=60%>
 </p>
 
 ## Model Analysis
@@ -117,6 +117,9 @@ $$
 where $k_1$, $k_3$, $k_4$, and $k_5$ are the same as before. The newly introduced $k_6$ potentially unjustifiably subsumes CPG formation, P-AMS activation, and subsequent AMS killing into a constant fractional killing rate of $5\%$ total cells/hr. Natural CTL death rate was not considered. Sensitivity analysis was performed using SENS_SYS, which uses ODE15s to solve the system and iterative approximation with directional derivatives to approximate sensitivity[^9][^10].
 
 ### Summary of Parameters
+<p align="center">
+<img src="param_table.PNG" width=75% height=75%>
+</p>
 
 [^1]: Maude et al. (2014). N Engl J Med.
 [^2]: Morgan et al. (2010). Mol Ther.
