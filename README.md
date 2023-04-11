@@ -59,7 +59,7 @@ Solution dependence on each parameter does not require accurate parameter values
 Validation of this model with in vitro assays is still necessary to assess its predictive capabilities. A sufficient model fit under a limited set of conditions should enable the model to predict optimal endpoints at which maximal SEAKER activity can be observed. The current results from the model can only be examined comparatively, and no specific values should be considered given the reliance of the model on the outlined assumptions, which can be validated as in vitro results surface. This model has extensibility which allows adaptation for more specific cases, such as drug resistance[^5] and tumor microenvironment[^6]. Overall, the present work shows the process by which physical relationships can be used to elucidate the behavior of a complex system of interest and further guide experimental design.
 
 ## Appendix: Model Parameters
-
+### ODE System
 The SEAKER system was assumed to be determined by discrete, but not necessarily independent fluxes as follows:
 
 $$
@@ -92,9 +92,39 @@ k_{cat}[\text{CPG}](t, y_1(t))\frac{\text{[P-AMS]}}{K_M+\text{[P-AMS]}}
 \end{pmatrix}
 $$
 
+### Key assumptions
+- The principle of mass action was assumed to govern formation and depletion rates of the system's constituents.
+- Natural logistic growth was assumed for CTLs and Raji cells, where the carrying capacity is assumed to be the number of cells at confluency for a T-75 culture flask. Thus, the carrying capacity describes a 10 mL reaction volume.
+- The doubling time of target cells was taken to be that of Raji cells; this parameter exclusively defines the phenotype of the target cells.
+- $EC_{50}$ value previously observed for SET2s was used and a sigmoidal $EC_{50}$ curve was assumed to model the fraction of killed cells at an instant $t$. The derivative of the sigmoid $y_3'(t)$ was taken to be the fractional killing rate of cells by AMS.
+- There is no latency between AMS formation and cell death.
+- CTL cytolytic activity was assumed to follow first-order elimination kinetics[^7].
+- P-AMS activation kinetics were assumed to follow the Michaelis-Menten model for a CMDA/CPG2 system[^8].
+
+### Simplified ODE System for Analysis
+The simplified system used in the model analysis is as follows:
+
+$$
+\begin{pmatrix} 
+y_1'(t) \\ 
+y_2'(t)
+\end{pmatrix} = \begin{pmatrix} 
+k_1y_1(t)(1-\frac{y_1(t)}{k_5}) - k_6y_1(t)\\ 
+k_3y_2(t)(1-\frac{y_2(t)}{k_5}) - y_1(t)e^{k_4t}) - k_6y_2(t)
+\end{pmatrix}
+$$
+
+where $k_1$, $k_3$, $k_4$, and $k_5$ are the same as before. The newly introduced $k_6$ potentially unjustifiably subsumes CPG formation, P-AMS activation, and subsequent AMS killing into a constant fractional killing rate of $5\%$ total cells/hr. Natural CTL death rate was not considered. Sensitivity analysis was performed using SENS_SYS, which uses ODE15s to solve the system and iterative approximation with directional derivatives to approximate sensitivity[^9][^10].
+
+### Summary of Parameters
+
 [^1]: Maude et al. (2014). N Engl J Med.
 [^2]: Morgan et al. (2010). Mol Ther.
 [^3]: Cameron et al. (2013). Sci Transl Med.
 [^4]: Gardner et al. (2021). Nat Chem Biol.
 [^5]: Cho & Levy. (2018). J Theor Biol.
 [^6]: Jain. (1987). Cancer Res.
+[^7]: Regoes et al. (2007). PNAS.
+[^8]: Curiel & Douglas. (2005).
+[^9]: Molla & Padilla. (2002).
+[^10]: Maly & Petzold. (1996). Appl Num Math}.
