@@ -76,7 +76,7 @@ $$
 \end{pmatrix}
 $$
 
-Specifically, the system is described by logistic growth, constant death rates, enzyme kinetics, and inferences from available cell viability data. The system was solved with MATLAB using ode15s.
+Specifically, the system is described by logistic growth, constant death rates, enzyme kinetics, and inferences from available cell viability data. The system was solved with MATLAB using ode15s. A more readable solution implemented in Python using SciPy is provided in `SEAKER_ODE_System.ipynb`.
 
 $$
 \begin{pmatrix} 
